@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable all
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Style/MethodMissing
 # rubocop:disable Style/SingleLineMethods, Style/MissingRespondToMissing, Style/MethodMissingSuper
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
@@ -189,5 +188,4 @@ class AboutMessagePassing < Neo::Koan
 end
 
 # rubocop:enable Style/SingleLineMethods, Style/MissingRespondToMissing, Style/MethodMissingSuper
-# rubocop:enable Lint/UnneededCopDisableDirective
-# rubocop:disable all
+# rubocop:enable Lint/UnneededCopDisableDirective, Style/MethodMissing

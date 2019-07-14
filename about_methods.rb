@@ -1,5 +1,8 @@
-# rubocop:disable all
 # frozen_string_literal: true
+
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Naming/UncommunicativeMethodParamName, Lint/AmbiguousRegexpLiteral, Lint/Void
+# rubocop:disable Lint/UnreachableCode, Style/RedundantSelf, Style/AccessModifierDeclarations
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -42,12 +45,12 @@ class AboutMethods < Neo::Koan
     exception = assert_raise(ArgumentError) do
       my_global_method
     end
-    assert_match(//, exception.message)
+    assert_match(/expected/, exception.message)
 
     exception = assert_raise(ArgumentError) do
       my_global_method(1, 2, 3)
     end
-    assert_match(//, exception.message)
+    assert_match(/expected/, exception.message)
   end
 
   # ------------------------------------------------------------------
@@ -77,7 +80,9 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_with_explicit_return
-    :return_value
+    :a_non_return_value
+    return :return_value
+    :another_non_return_value
   end
 
   def test_method_with_explicit_return
@@ -117,7 +122,6 @@ class AboutMethods < Neo::Koan
   def my_private_method
     'a secret'
   end
-
   private :my_private_method
 
   def test_calling_private_methods_without_receiver
@@ -128,7 +132,7 @@ class AboutMethods < Neo::Koan
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
-    assert_match //, exception.message
+    assert_match /private/, exception.message
   end
 
   # ------------------------------------------------------------------
@@ -156,4 +160,6 @@ class AboutMethods < Neo::Koan
     end
   end
 end
-# rubocop:enable all
+# rubocop:enable Naming/UncommunicativeMethodParamName, Lint/AmbiguousRegexpLiteral, Lint/Void
+# rubocop:enable Lint/UnreachableCode, Style/RedundantSelf, Style/AccessModifierDeclarations
+# rubocop:enable Lint/UnneededCopDisableDirective

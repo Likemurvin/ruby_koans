@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Style/SymbolProc, Naming/ConstantName
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutSymbols < Neo::Koan
@@ -27,9 +28,10 @@ class AboutSymbols < Neo::Koan
     assert_equal true, symbol1.object_id == symbol2.object_id
   end
 
-  def test_names_become_symbols
-    symbols_as_strings = Symbol.all_symbols.map(&:to_s)
-    assert_equal true, symbols_as_strings.include?('test_names_become_symbols')
+  # :reek:UncommunicativeVariableName
+  def test_method_names_become_symbols
+    symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
+    assert_equal true, symbols_as_strings.include?('test_method_names_become_symbols')
   end
 
   # THINK ABOUT IT:
@@ -38,7 +40,7 @@ class AboutSymbols < Neo::Koan
   # against the string value rather than against symbols?
 
   in_ruby_version('mri') do
-    RUBY_CONSTANT = 'What is the sound of one hand clapping?'
+    RubyConstant = 'What is the sound of one hand clapping?'
     def test_constants_become_symbols
       all_symbols_as_strings = Symbol.all_symbols.map(&:to_s)
 
@@ -103,3 +105,4 @@ class AboutSymbols < Neo::Koan
   #
   # Why is it not a good idea to dynamically create a lot of symbols?
 end
+# rubocop:enable Style/SymbolProc, Naming/ConstantName

@@ -1,7 +1,7 @@
-# rubocop:disable all
-
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
+# rubocop:disable Style/CharacterLiteral, Style/StringLiterals, Naming/HeredocDelimiterNaming
+# rubocop:disable Metrics/ClassLength, Lint/InterpolationCheck, Lint/UselessAssignment
 # :reek:TooManyMethods
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
@@ -201,4 +201,5 @@ It was the worst of times.
     assert_equal false, a.object_id == b.object_id
   end
 end
-# rubocop:enable all
+# rubocop:enable Style/CharacterLiteral, Style/StringLiterals, Naming/HeredocDelimiterNaming
+# rubocop:enable Metrics/ClassLength, Lint/InterpolationCheck, Lint/UselessAssignment

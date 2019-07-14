@@ -1,4 +1,6 @@
-# rubocop:disable all
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UselessAssignment, Naming/MethodName, Metrics/MethodLength
+# rubocop:disable Style/SignalException, Naming/RescuedExceptionsVariableName, Lint/HandleExceptions
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -77,4 +79,6 @@ class AboutExceptions < Neo::Koan
   end
 end
 
-# rubocop:enable all
+# rubocop:enable Lint/UselessAssignment, Naming/MethodName, Metrics/MethodLength
+# rubocop:enable Style/SignalException, Naming/RescuedExceptionsVariableName, Lint/HandleExceptions
+# rubocop:enable Lint/UnneededCopDisableDirective

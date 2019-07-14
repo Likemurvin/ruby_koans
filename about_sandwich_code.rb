@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable all
+# rubocop:disable Lint/AssignmentInCondition, Perfomance/RedundantMatch
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # :reek:NilCheck
@@ -114,4 +114,4 @@ class AboutSandwichCode < Neo::Koan
   end
 end
 
-# rubocop:enable all
+# rubocop:enable Lint/AssignmentInCondition, Perfomance/RedundantMatch

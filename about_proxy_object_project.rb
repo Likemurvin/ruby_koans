@@ -1,7 +1,6 @@
 # frozen_string_literal: false
 
-# rubocop:disable all
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Style/MethodMissing
 # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing, Style/SingleLineMethods
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
@@ -188,5 +187,4 @@ class TelevisionTest < Neo::Koan
 end
 
 # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing, Style/SingleLineMethods
-# rubocop:enable Lint/UnneededCopDisableDirective
-# rubocop:enable all
+# rubocop:enable Lint/UnneededCopDisableDirective, Style/MethodMissing

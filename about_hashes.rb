@@ -1,4 +1,4 @@
-# rubocop:disable Metrics/AbcSize, Style/EmptyLiteral
+# rubocop:disable Metrics/AbcSize, Style/EmptyLiteral, Lint/ShadowingOuterLocalVariable
 # frozen_string_literal:true
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
@@ -116,7 +116,7 @@ class AboutHashes < Neo::Koan
   # :reek:TooManyStatements
   # :reek:UncommunicativeVariableName
   def test_default_value_with_block
-    hash = Hash.new { |h, key| h[key] = [] }
+    hash = Hash.new { |hash, key| hash[key] = [] }
 
     hash[:one] << 'uno'
     hash[:two] << 'dos'
@@ -126,4 +126,4 @@ class AboutHashes < Neo::Koan
     assert_equal [], hash[:three]
   end
 end
-# rubocop:enable Metrics/AbcSize, Style/EmptyLiteral
+# rubocop:enable Metrics/AbcSize, Style/EmptyLiteral, Lint/ShadowingOuterLocalVariable
