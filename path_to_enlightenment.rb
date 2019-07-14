@@ -3,6 +3,7 @@
 $LOAD_PATH << File.dirname(__FILE__)
 
 require 'about_asserts'
+require 'about_variable_scope'
 require 'about_nil'
 require 'about_objects'
 require 'about_arrays'
@@ -12,7 +13,7 @@ require 'about_strings'
 require 'about_symbols'
 require 'about_regular_expressions'
 require 'about_methods'
-in_ruby_version("2") do
+in_ruby_version('2') do
   require 'about_keyword_arguments'
 end
 require 'about_constants'
@@ -35,7 +36,7 @@ require 'about_class_methods'
 require 'about_message_passing'
 require 'about_proxy_object_project'
 require 'about_to_str'
-in_ruby_version("jruby") do
+in_ruby_version('jruby') do
   require 'about_java_interop'
 end
 require 'about_extra_credit'

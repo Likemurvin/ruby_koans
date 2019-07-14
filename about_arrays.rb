@@ -1,17 +1,19 @@
 # frozen_string_literal:true
 
+# rubocop: disable Style/EmptyLiteral
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# class comment
 class AboutArrays < Neo::Koan
   def test_creating_arrays
-    empty_array = []
+    empty_array = Array.new
     assert_equal Array, empty_array.class
     assert_equal 0, empty_array.size
   end
 
+  # :reek:TooManyStatements
   def test_array_literals
-    array = []
+    array = Array.new
     assert_equal [], array
 
     array[0] = 1
@@ -24,6 +26,7 @@ class AboutArrays < Neo::Koan
     assert_equal [1, 2, 333], array
   end
 
+  # :reek:TooManyStatements
   def test_accessing_array_elements
     array = %i[peanut butter and jelly]
 
@@ -35,6 +38,7 @@ class AboutArrays < Neo::Koan
     assert_equal :butter, array[-3]
   end
 
+  # :reek:TooManyStatements
   def test_slicing_arrays
     array = %i[peanut butter and jelly]
 
@@ -62,6 +66,7 @@ class AboutArrays < Neo::Koan
     assert_equal %i[and jelly], array[2..-1]
   end
 
+  # :reek:TooManyStatements
   def test_pushing_and_popping_arrays
     array = [1, 2]
     array.push(:last)
@@ -73,6 +78,7 @@ class AboutArrays < Neo::Koan
     assert_equal [1, 2], array
   end
 
+  # :reek:TooManyStatements
   def test_shifting_arrays
     array = [1, 2]
     array.unshift(:first)
@@ -84,3 +90,4 @@ class AboutArrays < Neo::Koan
     assert_equal [1, 2], array
   end
 end
+# rubocop: enable Style/EmptyLiteral

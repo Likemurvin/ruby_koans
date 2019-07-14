@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
+# rubocop:disable Style/PerlBackrefs, Lint/AmbiguousBlockAssociation
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# class comment
+# :reek:TooManyMethods
 class AboutRegularExpressions < Neo::Koan
   def test_a_pattern_is_a_regular_expression
     assert_equal Regexp, /pattern/.class
@@ -51,6 +52,7 @@ class AboutRegularExpressions < Neo::Koan
 
   # ------------------------------------------------------------------
 
+  # :reek:UncommunicativeVariableName
   def test_character_classes_give_options_for_a_character
     animals = %w[cat bat rat zat]
     assert_equal %w[cat bat rat], animals.select { |a| a[/[cbr]at/] }
@@ -130,8 +132,8 @@ class AboutRegularExpressions < Neo::Koan
 
   def test_variables_can_also_be_used_to_access_captures
     assert_equal 'Gray, James', 'Name:  Gray, James'[/(\w+), (\w+)/]
-    assert_equal 'Gray', Regexp.last_match[1]
-    assert_equal 'James', Regexp.last_match[2]
+    assert_equal 'Gray', $1
+    assert_equal 'James', $2
   end
 
   # ------------------------------------------------------------------
@@ -154,10 +156,12 @@ class AboutRegularExpressions < Neo::Koan
   end
 
   def test_sub_is_like_find_and_replace
-    assert_equal 'one t-three', 'one two-three'.sub(/(t\w*)/) { Regexp.last_match[1][0, 1] }
+    assert_equal 'one t-three', 'one two-three'.sub(/(t\w*)/) { $1[0, 1] }
   end
 
   def test_gsub_is_like_find_and_replace_all
-    assert_equal 'one t-t', 'one two-three'.gsub(/(t\w*)/) { Regexp.last_match[1][0, 1] }
+    assert_equal 'one t-t', 'one two-three'.gsub(/(t\w*)/) { $1[0, 1] }
   end
 end
+
+# rubocop:enable Style/PerlBackrefs, Lint/AmbiguousBlockAssociation

@@ -1,12 +1,15 @@
+# rubocop:disable all
 # frozen_string_literal: true
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-def my_global_method(aaa, bbb)
-  aaa + bbb
+# :reek:UtilityFunction
+# :reek:UncommunicativeParameterName
+def my_global_method(a, b)
+  a + b
 end
 
-# class comment
+# :reek:TooManyMethods
 class AboutMethods < Neo::Koan
   def test_calling_global_methods
     assert_equal 5, my_global_method(2, 3)
@@ -34,6 +37,7 @@ class AboutMethods < Neo::Koan
 
   # NOTE: wrong number of arguments is not a SYNTAX error, but a
   # runtime error.
+  # :reek:TooManyStatements
   def test_calling_global_methods_with_wrong_number_of_arguments
     exception = assert_raise(ArgumentError) do
       my_global_method
@@ -47,9 +51,9 @@ class AboutMethods < Neo::Koan
   end
 
   # ------------------------------------------------------------------
-
-  def method_with_defaults(aaa, bbb = :default_value)
-    [aaa, bbb]
+  # :reek:UncommunicativeParameterName
+  def method_with_defaults(a, b = :default_value)
+    [a, b]
   end
 
   def test_calling_with_default_values
@@ -83,17 +87,21 @@ class AboutMethods < Neo::Koan
   # ------------------------------------------------------------------
 
   def method_without_explicit_return
-    :return_value
+    :a_non_return_value
+    return :return_value
+    :another_non_return_value
   end
 
+  # :reek:UtilityFunction
   def test_method_without_explicit_return
     assert_equal :return_value, method_without_explicit_return
   end
 
   # ------------------------------------------------------------------
-
-  def my_method_in_the_same_class(aaa, bbb)
-    aaa * bbb
+  # :reek:UtilityFunction
+  # :reek:UncommunicativeParameterName
+  def my_method_in_the_same_class(a, b)
+    a * b
   end
 
   def test_calling_methods_in_same_class
@@ -101,7 +109,7 @@ class AboutMethods < Neo::Koan
   end
 
   def test_calling_methods_in_same_class_with_explicit_receiver
-    assert_equal 12, my_method_in_the_same_class(3, 4)
+    assert_equal 12, self.my_method_in_the_same_class(3, 4)
   end
 
   # ------------------------------------------------------------------
@@ -120,7 +128,7 @@ class AboutMethods < Neo::Koan
     exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
-    assert_match (//), exception.message
+    assert_match //, exception.message
   end
 
   # ------------------------------------------------------------------
@@ -148,3 +156,4 @@ class AboutMethods < Neo::Koan
     end
   end
 end
+# rubocop:enable all

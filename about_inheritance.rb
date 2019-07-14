@@ -2,9 +2,7 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# class comment
 class AboutInheritance < Neo::Koan
-  # class comment
   class Dog
     attr_reader :name
 
@@ -17,7 +15,6 @@ class AboutInheritance < Neo::Koan
     end
   end
 
-  # class comment
   class Chihuahua < Dog
     def wag
       :happy

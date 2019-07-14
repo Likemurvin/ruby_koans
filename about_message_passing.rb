@@ -1,11 +1,12 @@
-# rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
 # frozen_string_literal: true
+
+# rubocop:disable all
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Style/SingleLineMethods, Style/MissingRespondToMissing, Style/MethodMissingSuper
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# class
 class AboutMessagePassing < Neo::Koan
-  # class
   class MessageCatcher
     def caught?
       true
@@ -42,6 +43,7 @@ class AboutMessagePassing < Neo::Koan
     # Why does Ruby provide both send and __send__ ?
   end
 
+  # :reek:ManualDispatch
   def test_classes_can_be_asked_if_they_know_how_to_respond
     mc = MessageCatcher.new
 
@@ -113,6 +115,7 @@ class AboutMessagePassing < Neo::Koan
   end
 
   # ------------------------------------------------------------------
+  # :reek:UtilityFunction
   class AllMessageCatcher
     def method_missing(method_name, *args)
       "Someone called #{method_name} with <#{args.join(', ')}>"
@@ -127,6 +130,7 @@ class AboutMessagePassing < Neo::Koan
     assert_equal 'Someone called sum with <1, 2, 3>', catcher.sum(1, 2, 3)
   end
 
+  # :reek:ManualDispatch
   def test_catching_messages_makes_respond_to_lie
     catcher = AllMessageCatcher.new
 
@@ -175,6 +179,7 @@ class AboutMessagePassing < Neo::Koan
     end
   end
 
+  # :reek:ManualDispatch
   def test_explicitly_implementing_respond_to_lets_objects_tell_the_truth
     catcher = WellBehavedFooCatcher.new
 
@@ -183,4 +188,6 @@ class AboutMessagePassing < Neo::Koan
   end
 end
 
-# rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
+# rubocop:enable Style/SingleLineMethods, Style/MissingRespondToMissing, Style/MethodMissingSuper
+# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:disable all

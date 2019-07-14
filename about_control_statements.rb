@@ -1,8 +1,13 @@
 # frozen_string_literal:true
 
+# rubocop:disable Lint/LiteralAsCondition, Metrics/ClassLength
+# rubocop:disable Metrics/MethodLength, Style/IfUnlessModifier
+# rubocop:disable Style/For, Style/SelfAssignment, Style/InfiniteLoop
+# rubocop:disable Style/ConditionalAssignment
+
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# class comment
+# :reek:RepeatedConditional
 class AboutControlStatements < Neo::Koan
   def test_if_then_else_statements
     if true
@@ -21,6 +26,8 @@ class AboutControlStatements < Neo::Koan
     assert_equal :true_value, result
   end
 
+  # :reek:TooManyStatements
+  # :reek:TooManyStatements
   def test_if_statements_return_values
     value = if true
               :true_value
@@ -61,7 +68,7 @@ class AboutControlStatements < Neo::Koan
 
   def test_unless_statement
     result = :default_value
-    unless false    # same as saying 'if !false', which evaluates as 'if true'
+    unless false # same as saying 'if !false', which evaluates as 'if true'
       result = :false_value
     end
     assert_equal :false_value, result
@@ -69,7 +76,7 @@ class AboutControlStatements < Neo::Koan
 
   def test_unless_statement_evaluate_true
     result = :default_value
-    unless true    # same as saying 'if !true', which evaluates as 'if false'
+    unless true # same as saying 'if !true', which evaluates as 'if false'
       result = :true_value
     end
     assert_equal :default_value, result
@@ -82,6 +89,8 @@ class AboutControlStatements < Neo::Koan
     assert_equal :false_value, result
   end
 
+  # :reek:FeatureEnvy
+  # :reek:UncommunicativeVariableName
   def test_while_statement
     i = 1
     result = 1
@@ -89,43 +98,56 @@ class AboutControlStatements < Neo::Koan
       result = result * i
       i += 1
     end
-    assert_equal 3628800, result
+    assert_equal 3_628_800, result
   end
 
+  # :reek:TooManyStatements
+  # :reek:UncommunicativeVariableName
+  # :reek:TooManyStatements
+  # :reek:FeatureEnvy
   def test_break_statement
     i = 1
     result = 1
     while true
       break unless i <= 10
+
       result = result * i
       i += 1
     end
-    assert_equal 3628800, result
+    assert_equal 3_628_800, result
   end
 
+  # :reek:FeatureEnvy
+  # :reek:UncommunicativeVariableName
+  # :reek:TooManyStatements
   def test_break_statement_returns_values
     i = 1
     result = while i <= 10
-      break i if i % 2 == 0
-      i += 1
+               break i if (i % 2).zero?
+
+               i += 1
              end
 
     assert_equal 2, result
   end
 
+  # :reek:FeatureEnvy
+  # :reek:TooManyStatements
+  # :reek:UncommunicativeVariableName
   def test_next_statement
     i = 0
     result = []
     while i < 10
       i += 1
-      next if (i % 2) == 0
+      next if (i % 2).zero?
+
       result << i
     end
     assert_equal [1, 3, 5, 7, 9], result
   end
 
   def test_for_statement
-    array = ["fish", "and", "chips"]
+    array = %w[fish and chips]
     result = []
     for item in array
       result << item.upcase
@@ -141,3 +163,7 @@ class AboutControlStatements < Neo::Koan
     assert_equal 10, sum
   end
 end
+# rubocop:enable Lint/LiteralAsCondition, Metrics/ClassLength
+# rubocop:enable Metrics/MethodLength, Style/IfUnlessModifier
+# rubocop:enable Style/For, Style/SelfAssignment, Style/InfiniteLoop
+# rubocop:enable Style/ConditionalAssignment

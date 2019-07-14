@@ -1,6 +1,8 @@
 # frozen_string_literal: false
 
-# rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
+# rubocop:disable all
+# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing, Style/SingleLineMethods
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
@@ -16,7 +18,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
-# class comment
+# :reek:Attribute
 class Proxy
   attr_accessor :messages
 
@@ -51,6 +53,7 @@ class AboutProxyObjectProject < Neo::Koan
     assert tv.instance_of?(Proxy)
   end
 
+  # :reek:FeatureEnvy
   def test_tv_methods_still_perform_their_function
     tv = Proxy.new(Television.new)
 
@@ -61,6 +64,7 @@ class AboutProxyObjectProject < Neo::Koan
     assert tv.on?
   end
 
+  # :reek:FeatureEnvy
   def test_proxy_records_messages_sent_to_tv
     tv = Proxy.new(Television.new)
 
@@ -78,6 +82,7 @@ class AboutProxyObjectProject < Neo::Koan
     end
   end
 
+  # :reek:FeatureEnvy
   def test_proxy_reports_methods_have_been_called
     tv = Proxy.new(Television.new)
 
@@ -88,6 +93,8 @@ class AboutProxyObjectProject < Neo::Koan
     assert !tv.called?(:channel)
   end
 
+  # :reek:FeatureEnvy
+  # :reek:TooManyStatements
   def test_proxy_counts_method_calls
     tv = Proxy.new(Television.new)
 
@@ -100,6 +107,7 @@ class AboutProxyObjectProject < Neo::Koan
     assert_equal 0, tv.number_of_times_called(:on?)
   end
 
+  # :reek:FeatureEnvy
   def test_proxy_can_record_more_than_just_tv_objects
     proxy = Proxy.new('Code Mash 2009')
 
@@ -116,6 +124,9 @@ end
 # changes should be necessary to anything below this comment.
 
 # Example class using in the proxy testing above.
+# :reek:Attribute
+# :reek:FeatureEnvy
+# :reek:InstanceVariableAssumption
 class Television
   attr_accessor :channel
 
@@ -133,6 +144,7 @@ class Television
 end
 
 # Tests for the Television class.  All of theses tests should pass.
+# :reek:FeatureEnvy
 class TelevisionTest < Neo::Koan
   def test_it_turns_on
     tv = Television.new
@@ -141,6 +153,7 @@ class TelevisionTest < Neo::Koan
     assert tv.on?
   end
 
+  # :reek:FeatureEnvy
   def test_it_also_turns_off
     tv = Television.new
 
@@ -150,6 +163,7 @@ class TelevisionTest < Neo::Koan
     assert !tv.on?
   end
 
+  # :reek:TooManyStatements
   def test_edge_case_on_off
     tv = Television.new
 
@@ -164,6 +178,7 @@ class TelevisionTest < Neo::Koan
     assert !tv.on?
   end
 
+  # :reek:FeatureEnvy
   def test_can_set_the_channel
     tv = Television.new
 
@@ -172,4 +187,6 @@ class TelevisionTest < Neo::Koan
   end
 end
 
-# rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
+# rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing, Style/SingleLineMethods
+# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable all

@@ -1,11 +1,11 @@
-# frozen_string_literal:true
+# rubocop:disable all
 
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
-# class comment
+# :reek:TooManyMethods
 class AboutStrings < Neo::Koan
   def test_double_quoted_strings_are_strings
-    string = 'Hello, World'
+    string = "Hello, World"
     assert_equal true, string.is_a?(String)
   end
 
@@ -24,12 +24,14 @@ class AboutStrings < Neo::Koan
     assert_equal "Don't", string
   end
 
+  # :reek:UncommunicativeVariableName
   def test_use_backslash_for_those_hard_cases
     a = "He said, \"Don't\""
     b = 'He said, "Don\'t"'
     assert_equal true, a == b
   end
 
+  # :reek:UncommunicativeVariableName
   def test_use_flexible_quoting_to_handle_really_hard_cases
     a = %(flexible quotes can handle both ' and " characters)
     b = %(flexible quotes can handle both ' and " characters)
@@ -50,10 +52,10 @@ It was the worst of times.
 
   def test_here_documents_can_also_handle_multiple_lines
     long_string =
-      <<~SQL
+      <<~EOS
         It was the best of times,
         It was the worst of times.
-      SQL
+      EOS
     assert_equal 53, long_string.length
     assert_equal 2, long_string.lines.count
     assert_equal 'I', long_string[0, 1]
@@ -80,20 +82,26 @@ It was the worst of times.
 
   def test_plus_equals_also_will_leave_the_original_string_unmodified
     original_string = 'Hello, '
+    hi = original_string
+    there = 'World'
+    hi += there
     assert_equal 'Hello, ', original_string
   end
 
   def test_the_shovel_operator_will_also_append_content_to_a_string
     hi = 'Hello, '
     there = 'World'
-    hi += there
+    hi << there
     assert_equal 'Hello, World', hi
     assert_equal 'World', there
   end
 
   def test_the_shovel_operator_modifies_the_original_string
     original_string = 'Hello, '
-    assert_equal 'Hello, ', original_string
+    hi = original_string
+    there = 'World'
+    hi << there
+    assert_equal 'Hello, World', original_string
 
     # THINK ABOUT IT:
     #
@@ -124,6 +132,7 @@ It was the worst of times.
   end
 
   def test_single_quoted_strings_do_not_interpolate
+    value = 123
     string = 'The value is #{value}'
     assert_equal 'The value is #{value}', string
   end
@@ -148,17 +157,17 @@ It was the worst of times.
 
   in_ruby_version('1.8') do
     def test_in_older_ruby_single_characters_are_represented_by_integers
-      assert_equal 'a', 'a'
-      assert_equal true, 'a' == 97
+      assert_equal 'a', ?a
+      assert_equal true, ?a == 97
 
-      assert_equal true, ('a' + 1) == 'b'
+      assert_equal true, ('a' + 1) == ?b
     end
   end
 
   in_ruby_version('1.9', '2') do
     def test_in_modern_ruby_single_characters_are_represented_by_strings
-      assert_equal 'a', 'a'
-      assert_equal false, 'a' == 97
+      assert_equal 'a', ?a
+      assert_equal false, ?a == 97
     end
   end
 
@@ -183,11 +192,13 @@ It was the worst of times.
     assert_equal 'Now is the time', words.join(' ')
   end
 
+  # :reek:UncommunicativeVariableName
   def test_strings_are_unique_objects
     a = 'a string'
     b = 'a string'
 
     assert_equal true, a           == b
-    assert_equal true, a.object_id == b.object_id
+    assert_equal false, a.object_id == b.object_id
   end
 end
+# rubocop:enable all

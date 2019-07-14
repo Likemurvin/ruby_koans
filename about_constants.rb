@@ -1,10 +1,10 @@
 # frozen_string_literal:true
 
+# rubocop:disable Style/ClassAndModuleChildren
 require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 C = 'top level'
 
-# class comment
 class AboutConstants < Neo::Koan
   C = 'nested'
 
@@ -28,7 +28,6 @@ class AboutConstants < Neo::Koan
       LEGS
     end
 
-    # class comment
     class NestedAnimal
       def legs_in_nested_animal
         LEGS
@@ -56,7 +55,6 @@ class AboutConstants < Neo::Koan
   class MyAnimals
     LEGS = 2
 
-    # class comment
     class Bird < Animal
       def legs_in_bird
         LEGS
@@ -72,20 +70,19 @@ class AboutConstants < Neo::Koan
   # or the constant from the inheritance hierarchy?
 
   # ------------------------------------------------------------------
-  class MyAnimals
-    # class comment
-    class Oyster < Animal
-      def legs_in_oyster
-        LEGS
-      end
+  class MyAnimals::Oyster < Animal
+    def legs_in_oyster
+      LEGS
     end
   end
 
   def test_who_wins_with_explicit_scoping_on_class_definition
-    assert_equal 2, MyAnimals::Oyster.new.legs_in_oyster
+    assert_equal 4, MyAnimals::Oyster.new.legs_in_oyster
   end
 
   # QUESTION: Now which has precedence: The constant in the lexical
   # scope, or the constant from the inheritance hierarchy?  Why is it
   # different than the previous answer?
 end
+
+# rubocop:enable Style/ClassAndModuleChildren
