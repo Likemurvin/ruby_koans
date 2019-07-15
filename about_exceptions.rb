@@ -1,4 +1,4 @@
-# rubocop:disable Lint/UnneededCopDisableDirective
+# rubocop:disable Lint/UnneededCopDisableDirective, Style/RaiseArgs
 # rubocop:disable Lint/UselessAssignment, Naming/MethodName, Metrics/MethodLength
 # rubocop:disable Style/SignalException, Naming/RescuedExceptionsVariableName, Lint/HandleExceptions
 
@@ -74,11 +74,11 @@ class AboutExceptions < Neo::Koan
   def test_asserting_an_error_is_raised
     # A do-end is a block, a topic to explore more later
     assert_raise(MySpecialError) do
-      raise MySpecialError, 'New instances can be raised directly.'
+      raise MySpecialError.new('New instances can be raised directly.')
     end
   end
 end
 
 # rubocop:enable Lint/UselessAssignment, Naming/MethodName, Metrics/MethodLength
 # rubocop:enable Style/SignalException, Naming/RescuedExceptionsVariableName, Lint/HandleExceptions
-# rubocop:enable Lint/UnneededCopDisableDirective
+# rubocop:enable Style/RaiseArgs, Lint/UnneededCopDisableDirective
